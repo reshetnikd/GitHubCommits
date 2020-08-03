@@ -15,6 +15,7 @@
 		351BECDB24D475AF00AD6CEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351BECD924D475AF00AD6CEE /* LaunchScreen.storyboard */; };
 		351BECE324D4769400AD6CEE /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351BECE224D4769400AD6CEE /* SwiftyJSON.swift */; };
 		351BECE524D477C900AD6CEE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351BECE424D477C900AD6CEE /* DetailViewController.swift */; };
+		3592FA6F24D86DE300D08E15 /* GitHub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3592FA6D24D86DE300D08E15 /* GitHub.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		351BECDC24D475AF00AD6CEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		351BECE224D4769400AD6CEE /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		351BECE424D477C900AD6CEE /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		3592FA6E24D86DE300D08E15 /* GitHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GitHub.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				351BECD224D475AD00AD6CEE /* ViewController.swift */,
 				351BECE424D477C900AD6CEE /* DetailViewController.swift */,
 				351BECD424D475AD00AD6CEE /* Main.storyboard */,
+				3592FA6D24D86DE300D08E15 /* GitHub.xcdatamodeld */,
 				351BECD724D475AF00AD6CEE /* Assets.xcassets */,
 				351BECD924D475AF00AD6CEE /* LaunchScreen.storyboard */,
 				351BECDC24D475AF00AD6CEE /* Info.plist */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3592FA6F24D86DE300D08E15 /* GitHub.xcdatamodeld in Sources */,
 				351BECD324D475AD00AD6CEE /* ViewController.swift in Sources */,
 				351BECCF24D475AD00AD6CEE /* AppDelegate.swift in Sources */,
 				351BECE524D477C900AD6CEE /* DetailViewController.swift in Sources */,
@@ -344,6 +348,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3592FA6D24D86DE300D08E15 /* GitHub.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3592FA6E24D86DE300D08E15 /* GitHub.xcdatamodel */,
+			);
+			currentVersion = 3592FA6E24D86DE300D08E15 /* GitHub.xcdatamodel */;
+			path = GitHub.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 351BECC324D475AD00AD6CEE /* Project object */;
 }
