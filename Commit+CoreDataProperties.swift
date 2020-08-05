@@ -2,7 +2,7 @@
 //  Commit+CoreDataProperties.swift
 //  GitHubCommits
 //
-//  Created by Dmitry Reshetnik on 04.08.2020.
+//  Created by Dmitry Reshetnik on 05.08.2020.
 //  Copyright © 2020 Dmitry Reshetnik. All rights reserved.
 //
 //
@@ -21,5 +21,6 @@ extension Commit {
     @NSManaged public var message: String
     @NSManaged public var sha: String
     @NSManaged public var url: String
+    @NSManaged public var author: Author
 
 }

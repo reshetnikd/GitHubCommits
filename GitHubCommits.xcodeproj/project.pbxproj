@@ -18,6 +18,8 @@
 		3592FA6F24D86DE300D08E15 /* GitHub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3592FA6D24D86DE300D08E15 /* GitHub.xcdatamodeld */; };
 		3592FA7224D9AE6700D08E15 /* Commit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3592FA7024D9AE6700D08E15 /* Commit+CoreDataClass.swift */; };
 		3592FA7324D9AE6700D08E15 /* Commit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3592FA7124D9AE6700D08E15 /* Commit+CoreDataProperties.swift */; };
+		359B94DF24DB1B6400ABAD31 /* Author+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359B94DD24DB1B6400ABAD31 /* Author+CoreDataClass.swift */; };
+		359B94E024DB1B6400ABAD31 /* Author+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359B94DE24DB1B6400ABAD31 /* Author+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		3592FA6E24D86DE300D08E15 /* GitHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GitHub.xcdatamodel; sourceTree = "<group>"; };
 		3592FA7024D9AE6700D08E15 /* Commit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Commit+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		3592FA7124D9AE6700D08E15 /* Commit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Commit+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		359B94DD24DB1B6400ABAD31 /* Author+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		359B94DE24DB1B6400ABAD31 /* Author+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 		351BECCD24D475AD00AD6CEE /* GitHubCommits */ = {
 			isa = PBXGroup;
 			children = (
+				359B94DD24DB1B6400ABAD31 /* Author+CoreDataClass.swift */,
+				359B94DE24DB1B6400ABAD31 /* Author+CoreDataProperties.swift */,
 				3592FA7024D9AE6700D08E15 /* Commit+CoreDataClass.swift */,
 				3592FA7124D9AE6700D08E15 /* Commit+CoreDataProperties.swift */,
 				351BECCE24D475AD00AD6CEE /* AppDelegate.swift */,
@@ -159,7 +165,9 @@
 				351BECCF24D475AD00AD6CEE /* AppDelegate.swift in Sources */,
 				351BECE524D477C900AD6CEE /* DetailViewController.swift in Sources */,
 				351BECD124D475AD00AD6CEE /* SceneDelegate.swift in Sources */,
+				359B94DF24DB1B6400ABAD31 /* Author+CoreDataClass.swift in Sources */,
 				3592FA7324D9AE6700D08E15 /* Commit+CoreDataProperties.swift in Sources */,
+				359B94E024DB1B6400ABAD31 /* Author+CoreDataProperties.swift in Sources */,
 				351BECE324D4769400AD6CEE /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
