@@ -11,11 +11,13 @@ import CoreData
 
 class ViewController: UITableViewController {
     var container: NSPersistentContainer!
+    var commitPredicate: NSPredicate?
     var commits = [Commit]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(changeFilter))
         container = NSPersistentContainer(name: "GitHub")
         
         container.loadPersistentStores { (storeDescription, error) in
@@ -44,6 +46,34 @@ class ViewController: UITableViewController {
         cell.detailTextLabel?.text = commit.date.description
         
         return cell
+    }
+    
+    @objc func changeFilter() {
+        let ac = UIAlertController(title: "Filter commits...", message: nil, preferredStyle: .actionSheet)
+        
+        ac.addAction(UIAlertAction(title: "Show only fixes", style: .default, handler: { [unowned self] (_) in
+            self.commitPredicate = NSPredicate(format: "message CONTAINS[c] 'fix'")
+            self.loadSavedData()
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Ignore Pull Requests", style: .default, handler: { [unowned self] (_) in
+            self.commitPredicate = NSPredicate(format: "NOT message BEGINSWITH 'Merge pull request'")
+            self.loadSavedData()
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Show only recent", style: .default, handler: { [unowned self] (_) in
+            let twelveHoursAgo = Date().addingTimeInterval(-43200)
+            self.commitPredicate = NSPredicate(format: "date > %@", twelveHoursAgo as NSDate)
+            self.loadSavedData()
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Show all commits", style: .default, handler: { [unowned self] (_) in
+            self.commitPredicate = nil
+            self.loadSavedData()
+        }))
+        
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     @objc func fetchCommits() {
@@ -90,6 +120,7 @@ class ViewController: UITableViewController {
     func loadSavedData() {
         let request = Commit.createFetchRequest()
         let sort = NSSortDescriptor(key: "date", ascending: false)
+        request.predicate = commitPredicate
         request.sortDescriptors = [sort]
         
         do {
