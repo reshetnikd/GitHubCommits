@@ -9,10 +9,10 @@
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+    var fetchedResultsController: NSFetchedResultsController<Commit>!
     var container: NSPersistentContainer!
     var commitPredicate: NSPredicate?
-    var commits = [Commit]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +31,18 @@ class ViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return fetchedResultsController.sections?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commits.count
+        let sectionInfo = fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Commit", for: indexPath)
         
-        let commit = commits[indexPath.row]
+        let commit = fetchedResultsController.object(at: indexPath)
         cell.textLabel?.text = commit.message
         cell.detailTextLabel?.text = "By \(commit.author.name) on \(commit.date.description)"
         
@@ -50,20 +51,21 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
-            vc.detailItem = commits[indexPath.row]
+            vc.detailItem = fetchedResultsController.object(at: indexPath)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let commit = commits[indexPath.row]
+            let commit = fetchedResultsController.object(at: indexPath)
             container.viewContext.delete(commit)
-            commits.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
             saveContext()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return fetchedResultsController.sections![section].name
     }
     
     @objc func changeFilter() {
@@ -167,14 +169,20 @@ class ViewController: UITableViewController {
     }
     
     func loadSavedData() {
-        let request = Commit.createFetchRequest()
-        let sort = NSSortDescriptor(key: "date", ascending: false)
-        request.predicate = commitPredicate
-        request.sortDescriptors = [sort]
+        if fetchedResultsController == nil {
+            let request = Commit.createFetchRequest()
+            let sort = NSSortDescriptor(key: "author.name", ascending: true)
+            request.sortDescriptors = [sort]
+            request.fetchBatchSize = 20
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: container.viewContext, sectionNameKeyPath: "author.name", cacheName: nil)
+            fetchedResultsController.delegate = self
+        }
+        
+        fetchedResultsController.fetchRequest.predicate = commitPredicate
         
         do {
-            commits = try container.viewContext.fetch(request)
-            print("Got \(commits.count) commits")
+            try fetchedResultsController.performFetch()
             tableView.reloadData()
         } catch {
             print("Fetch failed")
@@ -196,6 +204,15 @@ class ViewController: UITableViewController {
         }
         
         return formatter.string(from: Date(timeIntervalSince1970: 0))
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+        default:
+            break
+        }
     }
 
 
