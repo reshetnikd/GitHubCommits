@@ -141,7 +141,7 @@ class ViewController: UITableViewController, NSFetchedResultsControllerDelegate 
         commit.url = json["html_url"].stringValue
         
         let formatter = ISO8601DateFormatter()
-        commit.date = formatter.date(from: json["commit"]["commiter"]["date"].stringValue) ?? Date()
+        commit.date = formatter.date(from: json["commit"]["committer"]["date"].stringValue) ?? Date()
         
         var commitAuthor: Author!
 
@@ -191,19 +191,26 @@ class ViewController: UITableViewController, NSFetchedResultsControllerDelegate 
     
     func getNewestCommitDate() -> String {
         let formatter = ISO8601DateFormatter()
+        let defaults = UserDefaults.standard
+        let date = defaults.object(forKey: "newest") as? Date
         
-        let newest = Commit.createFetchRequest()
-        let sort = NSSortDescriptor(key: "date", ascending: false)
-        newest.sortDescriptors = [sort]
-        newest.fetchLimit = 1
-        
-        if let commits = try? container.viewContext.fetch(newest) {
-            if commits.count > 0 {
-                return formatter.string(from: commits[0].date.addingTimeInterval(1))
+        if date != nil {
+            return formatter.string(from: date!.addingTimeInterval(1))
+        } else {
+            let newest = Commit.createFetchRequest()
+            let sort = NSSortDescriptor(key: "date", ascending: false)
+            newest.sortDescriptors = [sort]
+            newest.fetchLimit = 1
+            
+            if let commits = try? container.viewContext.fetch(newest) {
+                if commits.count > 0 {
+                    defaults.set(commits[0].date.addingTimeInterval(1), forKey: "newest")
+                    return formatter.string(from: commits[0].date.addingTimeInterval(1))
+                }
             }
+            
+            return formatter.string(from: Date(timeIntervalSince1970: 0))
         }
-        
-        return formatter.string(from: Date(timeIntervalSince1970: 0))
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
