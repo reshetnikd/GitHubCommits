@@ -2,7 +2,7 @@
 //  Commit+CoreDataProperties.swift
 //  GitHubCommits
 //
-//  Created by Dmitry Reshetnik on 05.08.2020.
+//  Created by Dmitry Reshetnik on 10.08.2020.
 //  Copyright © 2020 Dmitry Reshetnik. All rights reserved.
 //
 //
